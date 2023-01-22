@@ -17,7 +17,8 @@ public class LevelSelector : MonoBehaviour
     }
 
     public void StartLevel() {
-        Button button = GetComponent<Button>();
+        // Button button = GetComponent<Button>();
+        Button button = gameObject.GetComponent<Button>();
         selectedLevel = level;
         selectedLevelName = button.GetComponentInChildren<TMP_Text>().text;
         SceneManager.LoadScene("Level");

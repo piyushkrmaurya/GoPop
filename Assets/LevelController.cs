@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class LevelController : MonoBehaviour
 {
+    [SerializeField] GameObject balloonPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +16,8 @@ public class LevelController : MonoBehaviour
         Debug.Log(levelHelpText);
         Text levelHelp = GetComponentInChildren<Text>();
         levelHelp.text = levelHelpText;
+
+        InvokeRepeating("Spawn", 0.02f, 0.5f);
     }
 
     public void Pause() {
@@ -25,5 +28,9 @@ public class LevelController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void Spawn() {
+        Instantiate(balloonPrefab, transform.position, transform.rotation, this.transform);
     }
 }
