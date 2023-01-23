@@ -6,18 +6,18 @@ using UnityEngine.UI;
 
 public class LevelController : MonoBehaviour
 {
+    public static int score = 0;
+    public static string lastPopped = "";
     [SerializeField] GameObject balloonPrefab;
-    // Start is called before the first frame update
+
     void Start()
     {
         int level = LevelSelector.selectedLevel;
         string levelHelpText = "Pop " + LevelSelector.selectedLevelName;
-        Debug.Log(level);
-        Debug.Log(levelHelpText);
-        Text levelHelp = GetComponentInChildren<Text>();
+        Text levelHelp = GameObject.FindGameObjectWithTag("LevelHelp").GetComponent<Text>();
         levelHelp.text = levelHelpText;
 
-        InvokeRepeating("Spawn", 0.02f, 0.5f);
+        InvokeRepeating("Spawn", 0.02f, 1f);
     }
 
     public void Pause() {

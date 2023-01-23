@@ -2,18 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using TMPro;
 
-public class Balloon : MonoBehaviour
+public class Balloon : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Vector3 force;
     private Rigidbody2D balloon;
+    private TMP_Text label;
 
-    // Start is called before the first frame update
     void Start()
     {
         balloon = GetComponent<Rigidbody2D>();
-        force = new Vector3(-Random.Range(100, 200), Random.Range(2000, 4000), 0);
-        // force = new Vector3(0, 0, 0);
+        force = new Vector3(Random.Range(-200, 200), Random.Range(2000, 4000), 0);
         
         Image image = GetComponent<Image>();
         Color32 color = new Color32(
@@ -22,18 +23,30 @@ public class Balloon : MonoBehaviour
             ( byte )Random.Range(100, 200),
             ( byte ) 255);
         
-        Debug.Log(color);
-
         image.color = color;
 
         balloon.AddForce(force);
 
+        label = balloon.GetComponentInChildren<TMP_Text>();
+        label.text = ((char)Random.Range(65 + LevelController.score, 70 + LevelController.score)).ToString();
+
         transform.position = new Vector3(Random.Range(20, Screen.width-20), -100, 0);
     }
 
-    // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        string matchCharacter = ((char)(label.text[0]-1)).ToString();
+        if((label.text == "A" && LevelController.lastPopped == "") || (matchCharacter == LevelController.lastPopped)) {
+            LevelController.lastPopped = label.text;
+            LevelController.score++;
+        }
+        Text scoreText = GameObject.FindGameObjectWithTag("Score").GetComponent<Text>();
+        scoreText.text = LevelController.score.ToString();
+        Destroy(gameObject);
     }
 }
