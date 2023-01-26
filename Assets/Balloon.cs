@@ -3,18 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 using TMPro;
 
 public class Balloon : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] private Vector3 force;
+    public delegate void PopAction(string label);
+    public static event PopAction OnPop;
+    public string type = "A";
+    public int offset = 0;
+    private Vector3 force;
     private Rigidbody2D balloon;
     private TMP_Text label;
 
-    void Start()
-    {
+    void Start() {
         balloon = GetComponent<Rigidbody2D>();
-        force = new Vector3(Random.Range(-200, 200), Random.Range(2000, 4000), 0);
+        force = new Vector3(Random.Range(-2, 2), Random.Range(20, 40), 0);
         
         Image image = GetComponent<Image>();
         Color32 color = new Color32(
@@ -28,25 +32,21 @@ public class Balloon : MonoBehaviour, IPointerClickHandler
         balloon.AddForce(force);
 
         label = balloon.GetComponentInChildren<TMP_Text>();
-        label.text = ((char)Random.Range(65 + LevelController.score, 70 + LevelController.score)).ToString();
+        label.text = ((char)Random.Range(65 + offset, 70 + offset)).ToString();
 
-        transform.position = new Vector3(Random.Range(20, Screen.width-20), -100, 0);
+        Canvas canvas = FindObjectOfType<Canvas>();
+        float width = canvas.GetComponent<RectTransform>().rect.width;
+        transform.position = new Vector3(Random.Range(-8, 8), -6, 0);
     }
 
-    void Update()
-    {
+    void Update() {
         
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        string matchCharacter = ((char)(label.text[0]-1)).ToString();
-        if((label.text == "A" && LevelController.lastPopped == "") || (matchCharacter == LevelController.lastPopped)) {
-            LevelController.lastPopped = label.text;
-            LevelController.score++;
+    public void OnPointerClick(PointerEventData eventData) {
+        if (OnPop != null) {
+            OnPop(label.text);
         }
-        Text scoreText = GameObject.FindGameObjectWithTag("Score").GetComponent<Text>();
-        scoreText.text = LevelController.score.ToString();
         Destroy(gameObject);
     }
 }
