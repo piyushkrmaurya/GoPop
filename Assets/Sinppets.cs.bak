@@ -1,0 +1,13 @@
+void InitLabelsForLevelType<T>(LevelType level, T start, T end) where T : IComparable<T> {
+    levelLabels[(int)level] = new List<string>();
+    for (T x = start; x <= end; x++) {
+        levelLabels[(int)level].Add(x.ToString());
+    }
+}
+
+void InitLabelsForLevelType(LevelType level, int start, int end, Type type) {
+    levelLabels[(int)level] = new List<string>();
+    for (int x = start; x <= end; x++) {
+        levelLabels[(int)level].Add(((type)x).ToString());
+    }
+}

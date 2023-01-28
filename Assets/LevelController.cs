@@ -4,17 +4,41 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+public enum Labels {
+    CapitalLetters = 0,
+    SmallLetters,
+    Numbers,
+    MaxLevelCount
+}
+
 public class LevelController : MonoBehaviour
 {
     private int score = 0;
-    private string lastPopped = "";
-    private string levelType;
+    private int lastPoppedIndex = -1;
+    private Labels level;
     [SerializeField] GameObject balloonPrefab;
     [SerializeField] GameObject pauseMenu;
+    public List<string>[] levelLabels = new List<string>[(int)Labels.MaxLevelCount];
+
+    void InitLevelLabels() {
+        for(int levelIndex=0; levelIndex<(int)Labels.MaxLevelCount; levelIndex++) {
+            levelLabels[levelIndex] = new List<string>();
+        }
+        for (char x = 'A'; x <= 'Z'; x++) {
+            levelLabels[(int)Labels.CapitalLetters].Add(x.ToString());
+        }
+        for (char x = 'a'; x <= 'z'; x++) {
+            levelLabels[(int)Labels.SmallLetters].Add(x.ToString());
+        }
+        for (int i=1; i<=100; i++) {
+            levelLabels[(int)Labels.Numbers].Add(i.ToString());
+        }
+    }
 
     void Start()
     {
-        int level = LevelSelector.selectedLevel;
+        InitLevelLabels();
+        level = (Labels)LevelSelector.selectedLevel;
         string levelHelpText = "Pop " + LevelSelector.selectedLevelName;
         Text levelHelp = GameObject.FindGameObjectWithTag("LevelHelp").GetComponent<Text>();
         levelHelp.text = levelHelpText;
@@ -64,10 +88,11 @@ public class LevelController : MonoBehaviour
     }
 
     void UpdateScore(string label){
-        Debug.Log("Balloon with label = " + label + " was popped.");
-        string matchCharacter = ((char)(label[0]-1)).ToString();
-        if((label == "A" && lastPopped == "") || (matchCharacter == lastPopped)) {
-            lastPopped = label;
+        if(levelLabels[(int)level][lastPoppedIndex+1]==label) {
+            lastPoppedIndex++;
+            if(lastPoppedIndex == levelLabels[(int)level].Count-1) {
+                lastPoppedIndex = -1;
+            }
             score++;
         }
         Text scoreText = GameObject.FindGameObjectWithTag("Score").GetComponent<Text>();
