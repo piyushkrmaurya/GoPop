@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3746121615425998535}
   - component: {fileID: 1311874218117932834}
   - component: {fileID: 5543811331714202468}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 6525589894229718948}
   - component: {fileID: 6525589894229718951}
   - component: {fileID: 6525589894229718950}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Balloon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,4 +264,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7426a56bd10c34b8e867bf204abef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: {x: 0, y: 0, z: 0}
+  type: A
+  offset: 0

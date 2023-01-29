@@ -18,7 +18,7 @@ public class Balloon : MonoBehaviour, IPointerClickHandler
 
     void Start() {
         balloon = GetComponent<Rigidbody2D>();
-        force = new Vector3(Random.Range(-2, 2), Random.Range(20, 40), 0);
+        force = new Vector3(Random.Range(-2, 2), Random.Range(20, 400), 0);
         
         Image image = GetComponent<Image>();
         Color32 color = new Color32(
@@ -34,13 +34,11 @@ public class Balloon : MonoBehaviour, IPointerClickHandler
         label = balloon.GetComponentInChildren<TMP_Text>();
         label.text = ((char)Random.Range(65 + offset, 70 + offset)).ToString();
 
-        Canvas canvas = FindObjectOfType<Canvas>();
-        float width = canvas.GetComponent<RectTransform>().rect.width;
         transform.position = new Vector3(Random.Range(-8, 8), -6, 0);
     }
 
     void Update() {
-        
+        // transform.Rotate(0, 0, Random.Range(-1, 1) * 2.0f * Time.deltaTime);
     }
 
     public void OnPointerClick(PointerEventData eventData) {

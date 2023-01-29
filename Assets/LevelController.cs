@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
-public enum Labels {
+public enum LevelTypes {
     CapitalLetters = 0,
     SmallLetters,
     Numbers,
@@ -15,32 +16,32 @@ public class LevelController : MonoBehaviour
 {
     private int score = 0;
     private int lastPoppedIndex = -1;
-    private Labels level;
+    private LevelTypes level;
     [SerializeField] GameObject balloonPrefab;
     [SerializeField] GameObject pauseMenu;
-    public List<string>[] levelLabels = new List<string>[(int)Labels.MaxLevelCount];
+    public List<string>[] levelLabels = new List<string>[(int)LevelTypes.MaxLevelCount];
 
     void InitLevelLabels() {
-        for(int levelIndex=0; levelIndex<(int)Labels.MaxLevelCount; levelIndex++) {
+        for(int levelIndex=0; levelIndex<(int)LevelTypes.MaxLevelCount; levelIndex++) {
             levelLabels[levelIndex] = new List<string>();
         }
         for (char x = 'A'; x <= 'Z'; x++) {
-            levelLabels[(int)Labels.CapitalLetters].Add(x.ToString());
+            levelLabels[(int)LevelTypes.CapitalLetters].Add(x.ToString());
         }
         for (char x = 'a'; x <= 'z'; x++) {
-            levelLabels[(int)Labels.SmallLetters].Add(x.ToString());
+            levelLabels[(int)LevelTypes.SmallLetters].Add(x.ToString());
         }
         for (int i=1; i<=100; i++) {
-            levelLabels[(int)Labels.Numbers].Add(i.ToString());
+            levelLabels[(int)LevelTypes.Numbers].Add(i.ToString());
         }
     }
 
     void Start()
     {
         InitLevelLabels();
-        level = (Labels)LevelSelector.selectedLevel;
+        level = (LevelTypes)LevelSelector.selectedLevel;
         string levelHelpText = "Pop " + LevelSelector.selectedLevelName;
-        Text levelHelp = GameObject.FindGameObjectWithTag("LevelHelp").GetComponent<Text>();
+        TMP_Text levelHelp = GameObject.FindGameObjectWithTag("LevelHelp").GetComponent<TMP_Text>();
         levelHelp.text = levelHelpText;
 
         InvokeRepeating("Spawn", 0.02f, 1f);
@@ -95,7 +96,7 @@ public class LevelController : MonoBehaviour
             }
             score++;
         }
-        Text scoreText = GameObject.FindGameObjectWithTag("Score").GetComponent<Text>();
+        TMP_Text scoreText = GameObject.FindGameObjectWithTag("Score").GetComponent<TMP_Text>();
         scoreText.text = score.ToString();
     }
 }
