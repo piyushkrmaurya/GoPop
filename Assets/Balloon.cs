@@ -9,6 +9,8 @@ using TMPro;
 
 public class Balloon : MonoBehaviour
 {
+    public string popTrigger="balloon_pop";
+    private Animator popAnimator;
     public delegate void PopAction(string label);
     public static event PopAction OnPop;
     public string type = "A";
@@ -19,6 +21,7 @@ public class Balloon : MonoBehaviour
     private TMP_Text label;
 
     void Start() {
+        popAnimator=GetComponent<Animator>();
         balloon = GetComponent<Rigidbody2D>();
         force = new Vector3(Random.Range(-2, 2), Random.Range(50, 150), 0);
         
@@ -45,13 +48,14 @@ public class Balloon : MonoBehaviour
     }
 
     public void OnMouseDown() {
-        Debug.Log(popAudio);
-        Debug.Log(popAudio.clip);
+        popAnimator.SetTrigger(popTrigger);
+        // Debug.Log(popAudio);
+        // Debug.Log(popAudio.clip);
         popAudio.Play();
         Debug.Log(popAudio.isPlaying);
         if (OnPop != null) {
             OnPop(label.text);
         }
-        Destroy(gameObject);
+        // Destroy(gameObject);
     }
 }

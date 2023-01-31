@@ -102,6 +102,18 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -120,19 +132,19 @@ TextureImporter:
       name: balloon_sprites_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 38
         y: 0
-        width: 248
+        width: 195
         height: 485
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.44095498, y: 0.6376905}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 55da35e9227649f4eac3d9f366223a77
-      internalID: -2053490493
+      spriteID: fd0bab85962c5d64a821a0fa44779612
+      internalID: -1921978660
       vertices: []
       indices: 
       edges: []
@@ -141,19 +153,19 @@ TextureImporter:
       name: balloon_sprites_1
       rect:
         serializedVersion: 2
-        x: 251
+        x: 267
         y: 0
-        width: 228
+        width: 196
         height: 485
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.4530051, y: 0.6258206}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 08d33387d606ab94187900da7f78a92e
-      internalID: 1053899423
+      spriteID: e9db16b0b3eade542b74b7eb82c6f24c
+      internalID: 1855376263
       vertices: []
       indices: 
       edges: []
@@ -162,19 +174,19 @@ TextureImporter:
       name: balloon_sprites_2
       rect:
         serializedVersion: 2
-        x: 491
+        x: 480
         y: 0
-        width: 249
+        width: 283
         height: 485
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.4349044, y: 0.6044548}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca13bb031a1ad344ca8687c9bb1be366
-      internalID: 1044085866
+      spriteID: 73d1a58d4b4f96c44a89a4c3a0823752
+      internalID: 1430111841
       vertices: []
       indices: 
       edges: []
@@ -183,19 +195,19 @@ TextureImporter:
       name: balloon_sprites_3
       rect:
         serializedVersion: 2
-        x: 783
+        x: 827
         y: 0
-        width: 329
+        width: 222
         height: 485
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.515559, y: 0.59258497}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c43cbc1d03db9074180b96a90a8e39d3
-      internalID: -1281569927
+      spriteID: 6b9930f0f5b6e6b40ad17da9a2a87d4b
+      internalID: 412037827
       vertices: []
       indices: 
       edges: []
@@ -204,9 +216,9 @@ TextureImporter:
       name: balloon_sprites_4
       rect:
         serializedVersion: 2
-        x: 1191
+        x: 1221
         y: 0
-        width: 329
+        width: 282
         height: 485
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -215,8 +227,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4199bd9062320774398cc249f99cebd2
-      internalID: 441537290
+      spriteID: ac86f55189ae4a441a942e13d4a9f28c
+      internalID: -329979942
       vertices: []
       indices: 
       edges: []
@@ -225,9 +237,30 @@ TextureImporter:
       name: balloon_sprites_5
       rect:
         serializedVersion: 2
-        x: 1552
+        x: 1574
         y: 0
-        width: 411
+        width: 369
+        height: 485
+      alignment: 9
+      pivot: {x: 0.5, y: 0.54510546}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfacd9a15984abb408d54fd8d33766b5
+      internalID: -201118585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: balloon_sprites_6
+      rect:
+        serializedVersion: 2
+        x: 1955
+        y: 0
+        width: 18
         height: 485
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -236,8 +269,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bbfc0d5e979cb2f49b42bd3247770a07
-      internalID: -1508412417
+      spriteID: 534aa840733917546bbd6d380ef37008
+      internalID: -110865800
       vertices: []
       indices: 
       edges: []
@@ -253,12 +286,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      balloon_sprites_0: -2053490493
-      balloon_sprites_5: -1508412417
-      balloon_sprites_2: 1044085866
-      balloon_sprites_3: -1281569927
-      balloon_sprites_4: 441537290
-      balloon_sprites_1: 1053899423
+      balloon_sprites_0: -1921978660
+      balloon_sprites_5: -201118585
+      balloon_sprites_6: -110865800
+      balloon_sprites_2: 1430111841
+      balloon_sprites_3: 412037827
+      balloon_sprites_4: -329979942
+      balloon_sprites_1: 1855376263
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
