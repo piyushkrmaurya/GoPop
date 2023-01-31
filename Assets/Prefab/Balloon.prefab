@@ -260,6 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: A
   offset: 0
+  popAudio: {fileID: -6041841436017032983}
 --- !u!212 &2004788042929937796
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ public class Balloon : MonoBehaviour
     public int offset = 0;
     private Vector3 force;
     private Rigidbody2D balloon;
-    private AudioSource popAudio;
+    public AudioSource popAudio;
     private TMP_Text label;
 
     void Start() {
@@ -38,7 +38,6 @@ public class Balloon : MonoBehaviour
 
         transform.position = new Vector3(Random.Range(-8, 8), -6, 0);
 
-        popAudio = GetComponent<AudioSource>();
     }
 
     void Update() {
@@ -48,10 +47,8 @@ public class Balloon : MonoBehaviour
     public void OnMouseDown() {
         Debug.Log(popAudio);
         Debug.Log(popAudio.clip);
-        if (!popAudio.isPlaying) {
-            popAudio.Play();
-            Debug.Log(popAudio.isPlaying);
-        }
+        popAudio.Play();
+        Debug.Log(popAudio.isPlaying);
         if (OnPop != null) {
             OnPop(label.text);
         }
