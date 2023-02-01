@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5774102626304230004}
   - component: {fileID: 3904835543196107868}
   m_Layer: 6
-  m_Name: Text
+  m_Name: Letter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -306,7 +306,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -453,6 +453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7426a56bd10c34b8e867bf204abef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  popTrigger: balloon_pop
   type: A
   offset: 0
   popAudio: {fileID: -6041841436017032983}
