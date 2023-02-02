@@ -9,6 +9,7 @@ using TMPro;
 
 public class Balloon : MonoBehaviour
 {
+    public new UnityEngine.Camera camera;
     public string popTrigger="balloon_pop";
     private Animator popAnimator;
     public delegate void PopAction(string label);
@@ -21,6 +22,7 @@ public class Balloon : MonoBehaviour
     private TMP_Text label;
 
     void Start() {
+        camera = UnityEngine.Camera.main;
         popAnimator=GetComponent<Animator>();
         balloon = GetComponent<Rigidbody2D>();
         force = new Vector3(Random.Range(-2, 2), Random.Range(50, 150), 0);
@@ -45,17 +47,23 @@ public class Balloon : MonoBehaviour
 
     void Update() {
         // transform.Rotate(0, 0, Random.Range(-1, 1) * 2.0f * Time.deltaTime);
+        Vector3 position = camera.WorldToViewportPoint(transform.position);
+        if (position.y >= 1) {
+            DestroyAfterPop();
+        }
     }
 
     public void OnMouseDown() {
-        popAnimator.SetTrigger(popTrigger);
-        // Debug.Log(popAudio);
-        // Debug.Log(popAudio.clip);
-        popAudio.Play();
-        Debug.Log(popAudio.isPlaying);
-        if (OnPop != null) {
-            OnPop(label.text);
+        if (!EventSystem.current.IsPointerOverGameObject()) {
+            popAnimator.SetTrigger(popTrigger);
+            popAudio.Play();
+            if (OnPop != null) {
+                OnPop(label.text);
+            }
         }
-        // Destroy(gameObject);
+    }
+
+    public void DestroyAfterPop() {
+        Destroy(gameObject);
     }
 }

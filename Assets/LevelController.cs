@@ -19,6 +19,8 @@ public class LevelController : MonoBehaviour
     private LevelTypes level;
     [SerializeField] GameObject balloonPrefab;
     [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject gameOverMenu;
+
     public List<string>[] levelLabels = new List<string>[(int)LevelTypes.MaxLevelCount];
 
     void InitLevelLabels() {
@@ -45,6 +47,11 @@ public class LevelController : MonoBehaviour
         levelHelp.text = levelHelpText;
 
         InvokeRepeating("Spawn", 0.02f, 1f);
+    }
+
+    public void GameOver() {
+        Time.timeScale = 0f;
+        gameOverMenu.SetActive(true);
     }
 
     public void Pause() {
@@ -95,6 +102,9 @@ public class LevelController : MonoBehaviour
                 lastPoppedIndex = -1;
             }
             score++;
+        } 
+        else {
+            GameOver();
         }
         TMP_Text scoreText = GameObject.FindGameObjectWithTag("Score").GetComponent<TMP_Text>();
         scoreText.text = score.ToString();
