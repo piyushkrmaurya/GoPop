@@ -17,6 +17,9 @@ public class LevelController : MonoBehaviour
     private int score = 0;
     private int lastPoppedIndex = -1;
     private LevelTypes level;
+
+    private AudioSource backgoundAudio;
+
     [SerializeField] GameObject balloonPrefab;
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject gameOverMenu;
@@ -41,10 +44,12 @@ public class LevelController : MonoBehaviour
     void Start()
     {
         InitLevelLabels();
-        level = (LevelTypes)LevelSelector.selectedLevel;
-        string levelHelpText = "Pop " + LevelSelector.selectedLevelName;
+        level = (LevelTypes)LevelSelectorButton.selectedLevel;
+        string levelHelpText = "Pop " + LevelSelectorButton.selectedLevelName;
         TMP_Text levelHelp = GameObject.FindGameObjectWithTag("LevelHelp").GetComponent<TMP_Text>();
         levelHelp.text = levelHelpText;
+
+        backgoundAudio = GetComponent<AudioSource>();
 
         InvokeRepeating("Spawn", 0.02f, 1f);
     }
@@ -52,15 +57,18 @@ public class LevelController : MonoBehaviour
     public void GameOver() {
         Time.timeScale = 0f;
         gameOverMenu.SetActive(true);
+        backgoundAudio.Pause();
     }
 
     public void Pause() {
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
+        backgoundAudio.Pause();
     }
 
     
     public void Resume() {
+        backgoundAudio.Play();
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
     }
