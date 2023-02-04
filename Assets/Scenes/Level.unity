@@ -1116,7 +1116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 796228704}
   - component: {fileID: 796228705}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ControlsGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2136,7 +2136,7 @@ GameObject:
   - component: {fileID: 1450334620}
   - component: {fileID: 1450334619}
   - component: {fileID: 1450334622}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Pause
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2673,7 +2673,7 @@ GameObject:
   - component: {fileID: 1781383604}
   - component: {fileID: 1781383603}
   - component: {fileID: 1781383608}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}

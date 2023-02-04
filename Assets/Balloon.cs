@@ -24,6 +24,10 @@ public class Balloon : MonoBehaviour
     private Rigidbody2D balloon;
     private TMP_Text label;
 
+    private int[,] colors = new int[6, 4] {
+        {255,0,0,255}, {255,192,0,255}, {255,252,0,255}, {255,0,0,255}, {0,255,255,255}, {255,0,0,255}
+    };
+
     void Start() {
         camera = UnityEngine.Camera.main;
         popAudio = GetComponent<AudioSource>();
@@ -32,13 +36,15 @@ public class Balloon : MonoBehaviour
         balloon = GetComponent<Rigidbody2D>();
     
         force = new Vector3(Random.Range(-2, 2), Random.Range(50, 150), 0);
+
         
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+        int randomColorIndex = Random.Range(0, colors.GetLength(0)-1);
         Color32 color = new Color32(
-            ( byte )Random.Range(100, 200),
-            ( byte )Random.Range(100, 200),
-            ( byte )Random.Range(100, 200),
-            ( byte ) 255);
+            ( byte )colors[randomColorIndex, 0],
+            ( byte )colors[randomColorIndex, 1],
+            ( byte )colors[randomColorIndex, 2],
+            ( byte )colors[randomColorIndex, 3]);
         
         sprite.color = color;
 
@@ -47,19 +53,19 @@ public class Balloon : MonoBehaviour
         label = balloon.GetComponentInChildren<TMP_Text>();
         label.text = ((char)Random.Range(65 + offset, 70 + offset)).ToString();
 
-        transform.position = new Vector3(Random.Range(-8, 8), -6, 0);
+        transform.position = new Vector3(Random.Range(-8f, 8f), -6, 0);
 
     }
 
     void Update() {
         Vector3 position = camera.WorldToViewportPoint(transform.position);
-        if (position.y >= 1) {
+        if (position.y >= 1.5) {
             DestroyAfterPop();
         }
     }
 
     public void OnMouseDown() {
-        if (!EventSystem.current.IsPointerOverGameObject()) {
+        if (Time.timeScale == 1 || !EventSystem.current.IsPointerOverGameObject()) {
             popAnimator.SetTrigger(popTrigger);
             popAudio.Play();
             if (OnPop != null) {
