@@ -24,7 +24,6 @@ public class Balloon : MonoBehaviour
     private Vector3 force;
     private Rigidbody2D balloon;
     private TMP_Text label;
-    private int labelIndex;
 
     private int[,] colors = new int[22, 4] {
         {255,0,0,255}, {255,192,0,255}, {255,252,0,255}, {255,0,0,255}, {0,255,255,255}, {255,0,0,255},
@@ -60,16 +59,15 @@ public class Balloon : MonoBehaviour
         label = balloon.GetComponentInChildren<TMP_Text>();
 
         if(balloonCounter == 0 || balloonCounter == 3) {
-            labelIndex = Random.Range(offset, 5 + offset);
+            label.text = labels[Random.Range(offset, 5 + offset)];
         }
         else if(balloonCounter == 1 || balloonCounter == 4) {
-            labelIndex = Random.Range(offset, 5 + offset);
+            label.text = "";
+            balloon.GetComponentsInChildren<SpriteRenderer>()[1].enabled = true;
         }
         else {
-            labelIndex = offset;
+            label.text = labels[offset];
         }
-        
-        label.text = labels[labelIndex];
 
         transform.position = new Vector3(Random.Range(-8f, 8f), -6, 0);
 
