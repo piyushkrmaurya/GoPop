@@ -357,7 +357,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: +5
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -538,8 +538,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7426a56bd10c34b8e867bf204abef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: A
+  stickers:
+  - {fileID: 21300000, guid: 2eb97585e51bf2247bc17f1aadf95865, type: 3}
+  - {fileID: 21300000, guid: fa920385aa439c64cbe5038800660160, type: 3}
+  - {fileID: 21300000, guid: 55835d0595c07e34ca0688dbfe7f40a5, type: 3}
+  - {fileID: 21300000, guid: 5ee3daaba0df0e94cbdd006ba6b60680, type: 3}
+  stickersAudios:
+  - {fileID: 8300000, guid: 59304c96d16eeae4fa4eba6acefa659b, type: 3}
+  - {fileID: 8300000, guid: c923c6786263b1b4289ce2157da1be15, type: 3}
+  - {fileID: 8300000, guid: 2e5475b35ebd7f246acbfe0e8ac6880c, type: 3}
+  - {fileID: 8300000, guid: d38a9bb42829f514eabfe8f342677b78, type: 3}
   offset: 0
+  label: {fileID: 0}
 --- !u!212 &2004788042929937796
 SpriteRenderer:
   m_ObjectHideFlags: 0

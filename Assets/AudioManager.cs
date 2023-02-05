@@ -11,31 +11,13 @@ public enum GameAudio {
     GameOver
 };
 
-public class AudioManager {
+public class AudioManager : MonoBehaviour {
     
-    public static List<string> audioNames = new List<string>{
-        "start_menu_background_music",
-        "level_background_music",
-        "button_clic",
-        "yay",
-        "uhoh",
-        "game_over"
-    };
-
-    public static List<AudioSource> audioSources = new List<AudioSource>();
-
-    public void Start() {
-        for(int i=0; i<audioSources.Count; i++) {
-            AudioSource audioSource = new AudioSource();
-            audioSource.clip = (AudioClip)Resources.Load(audioNames[i], typeof(AudioClip));
-            audioSources.Add(audioSource);
-        }
-    }
+    public List<AudioClip> audioClips = new List<AudioClip>();
 
     public static void Play(GameAudio audio) {
-        Debug.Log(audio);
-        Debug.Log((int)audio);
-        Debug.Log(audioSources.Count);
-        audioSources[(int)audio].Play();
+        AudioSource audioSource = new AudioSource();
+        // audioSource.clip = audioClips[(int)audio];
+        // audioSource.Play();
     }
 }

@@ -10,10 +10,12 @@ using TMPro;
 public class Balloon : MonoBehaviour
 {
 
-    public delegate void PopAction(string label);
+    public List<Sprite> stickers;
+    public List<AudioClip> stickersAudios;
+    public delegate void PopAction(Balloon balloon);
     public static event PopAction OnPop;
-    public string type = "A";
     public int offset = 0;
+    public TMP_Text label;
 
     private static new UnityEngine.Camera camera;
     private static AudioSource popAudio;
@@ -23,7 +25,8 @@ public class Balloon : MonoBehaviour
     private Animator popAnimator;
     private Vector3 force;
     private Rigidbody2D balloon;
-    private TMP_Text label;
+    private SpriteRenderer stickerRenderer;
+    private static int stickerIndex = -1;
 
     private int[,] colors = new int[22, 4] {
         {255,0,0,255}, {255,192,0,255}, {255,252,0,255}, {255,0,0,255}, {0,255,255,255}, {255,0,0,255},
@@ -38,6 +41,7 @@ public class Balloon : MonoBehaviour
 
         popAnimator=GetComponent<Animator>();
         balloon = GetComponent<Rigidbody2D>();
+        stickerRenderer = balloon.GetComponentsInChildren<SpriteRenderer>()[1];
     
         force = new Vector3(Random.Range(-2, 2), Random.Range(80, 150), 0);
 
@@ -63,7 +67,9 @@ public class Balloon : MonoBehaviour
         }
         else if(balloonCounter == 1 || balloonCounter == 4) {
             label.text = "";
-            balloon.GetComponentsInChildren<SpriteRenderer>()[1].enabled = true;
+            stickerIndex = (stickerIndex + 1) % stickers.Count;
+            stickerRenderer.sprite = stickers[stickerIndex];
+            stickerRenderer.enabled = true;
         }
         else {
             label.text = labels[offset];
@@ -83,10 +89,16 @@ public class Balloon : MonoBehaviour
 
     public void OnMouseDown() {
         if (Time.timeScale == 1 || !EventSystem.current.IsPointerOverGameObject()) {
+            if (OnPop != null) {
+                OnPop(this);
+            }
             popAnimator.SetTrigger(popTrigger);
             popAudio.Play();
-            if (OnPop != null) {
-                OnPop(label.text);
+            
+            if(label.text == "") {
+                AudioSource audioSource = GameObject.Find("Controller").AddComponent<AudioSource>();
+                audioSource.clip = stickersAudios[stickerIndex];
+                audioSource.Play();
             }
         }
     }

@@ -107,12 +107,16 @@ public class LevelController : MonoBehaviour
         Balloon.OnPop -= UpdateScore;
     }
 
-    void UpdateScore(string label){
-        if(levelLabels[(int)level][lastPoppedIndex+1]==label) {
+    void UpdateScore(Balloon balloon){
+        if(balloon.label.text == "") {
+            return;
+        }
+        else if(levelLabels[(int)level][lastPoppedIndex+1]==balloon.label.text) {
             lastPoppedIndex++;
             if(lastPoppedIndex == levelLabels[(int)level].Count-1) {
                 lastPoppedIndex = -1;
             }
+            balloon.GetComponentsInChildren<TMP_Text>()[1].text = "+1";
             score++;
             correctPopAudio.Play();
         } 
