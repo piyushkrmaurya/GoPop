@@ -19,7 +19,8 @@ public class Balloon : MonoBehaviour
 
     private static new UnityEngine.Camera camera;
     private static AudioSource popAudio;
-    private static string popTrigger="balloon_pop";
+    private static string[] stickerTriggers = {"rain_start","sun_shine","thunder_start","star_twinkle"};
+    private static string popTrigger = "balloon_pop";
     private static int balloonCounter = 0;
     
     private Animator popAnimator;
@@ -69,6 +70,9 @@ public class Balloon : MonoBehaviour
             label.text = "";
             stickerIndex = (stickerIndex + 1) % stickers.Count;
             stickerRenderer.sprite = stickers[stickerIndex];
+            Debug.Log(stickerIndex);
+            Debug.Log(stickers[stickerIndex]);
+            Debug.Log(stickerRenderer.sprite);
             stickerRenderer.enabled = true;
         }
         else {
@@ -98,6 +102,7 @@ public class Balloon : MonoBehaviour
             if(label.text == "") {
                 AudioSource audioSource = GameObject.Find("Controller").AddComponent<AudioSource>();
                 audioSource.clip = stickersAudios[stickerIndex];
+                popAnimator.SetTrigger(stickerTriggers[stickerIndex]);
                 audioSource.Play();
             }
         }
