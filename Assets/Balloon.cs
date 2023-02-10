@@ -16,10 +16,10 @@ public class Balloon : MonoBehaviour
     public static event PopAction OnPop;
     public int offset = 0;
     public TMP_Text label;
+    public int stickerIndex = -1;
 
     private static new UnityEngine.Camera camera;
     private static AudioSource popAudio;
-    private static string[] stickerTriggers = {"rain_start","sun_shine","thunder_start","star_twinkle"};
     private static string popTrigger = "balloon_pop";
     private static int balloonCounter = 0;
     
@@ -27,7 +27,7 @@ public class Balloon : MonoBehaviour
     private Vector3 force;
     private Rigidbody2D balloon;
     private SpriteRenderer stickerRenderer;
-    private static int stickerIndex = -1;
+    private static int currentStickerIndex = -1;
 
     private int[,] colors = new int[22, 4] {
         {255,0,0,255}, {255,192,0,255}, {255,252,0,255}, {255,0,0,255}, {0,255,255,255}, {255,0,0,255},
@@ -40,7 +40,7 @@ public class Balloon : MonoBehaviour
         camera = UnityEngine.Camera.main;
         popAudio = GetComponent<AudioSource>();
 
-        popAnimator=GetComponent<Animator>();
+        popAnimator = GetComponent<Animator>();
         balloon = GetComponent<Rigidbody2D>();
         stickerRenderer = balloon.GetComponentsInChildren<SpriteRenderer>()[1];
     
@@ -68,11 +68,9 @@ public class Balloon : MonoBehaviour
         }
         else if(balloonCounter == 1 || balloonCounter == 4) {
             label.text = "";
-            stickerIndex = (stickerIndex + 1) % stickers.Count;
-            stickerRenderer.sprite = stickers[stickerIndex];
-            Debug.Log(stickerIndex);
-            Debug.Log(stickers[stickerIndex]);
-            Debug.Log(stickerRenderer.sprite);
+            currentStickerIndex = (currentStickerIndex + 1) % stickers.Count;
+            stickerIndex = currentStickerIndex;
+            stickerRenderer.sprite = stickers[currentStickerIndex];
             stickerRenderer.enabled = true;
         }
         else {
@@ -93,16 +91,17 @@ public class Balloon : MonoBehaviour
 
     public void OnMouseDown() {
         if (Time.timeScale == 1 || !EventSystem.current.IsPointerOverGameObject()) {
-            if (OnPop != null) {
-                OnPop(this);
-            }
             popAnimator.SetTrigger(popTrigger);
             popAudio.Play();
             
+            if (OnPop != null) {
+                OnPop(this);
+            }
+
+            
             if(label.text == "") {
                 AudioSource audioSource = GameObject.Find("Controller").AddComponent<AudioSource>();
-                audioSource.clip = stickersAudios[stickerIndex];
-                popAnimator.SetTrigger(stickerTriggers[stickerIndex]);
+                audioSource.clip = stickersAudios[currentStickerIndex];
                 audioSource.Play();
             }
         }

@@ -17,6 +17,8 @@ public class LevelController : MonoBehaviour
     private int score = 0;
     private int lastPoppedIndex = -1;
     private LevelType level;
+    private Animator sceneAnimator;
+    private static string[] stickerTriggers = {"rain_start","sun_shine","thunder_start","star_twinkle"};
 
     private AudioSource backgoundAudio;
     private AudioSource correctPopAudio;
@@ -54,6 +56,7 @@ public class LevelController : MonoBehaviour
         backgoundAudio = GetComponents<AudioSource>()[0];
         correctPopAudio = GetComponents<AudioSource>()[1];
         incorrectPopAudio = GetComponents<AudioSource>()[2];
+        sceneAnimator = GameObject.Find("AfterPopAnimation").GetComponent<Animator>();
 
         InvokeRepeating("Spawn", 0.02f, 1.6f);
     }
@@ -100,15 +103,16 @@ public class LevelController : MonoBehaviour
     }
 
     void OnEnable(){
-        Balloon.OnPop += UpdateScore;
+        Balloon.OnPop += HandlePopEvent;
     }
 
     void OnDisable(){
-        Balloon.OnPop -= UpdateScore;
+        Balloon.OnPop -= HandlePopEvent;
     }
 
-    void UpdateScore(Balloon balloon){
-        if(balloon.label.text == "") {
+    void HandlePopEvent(Balloon balloon){
+        if(balloon.label.text == "" && balloon.stickerIndex>=0) {
+            sceneAnimator.SetTrigger(stickerTriggers[balloon.stickerIndex]);
             return;
         }
         else if(levelLabels[(int)level][lastPoppedIndex+1]==balloon.label.text) {
