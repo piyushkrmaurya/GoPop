@@ -18,7 +18,7 @@ public class LevelController : MonoBehaviour
     private int lastPoppedIndex = -1;
     private LevelType level;
     private Animator sceneAnimator;
-    private static string[] stickerTriggers = {"rain_start","sun_shine","thunder_start","star_twinkle"};
+    private static string[] stickerTriggers = {"background_rain","background_sunshine","background_thunder","background_twinkle"};
 
     private AudioSource backgoundAudio;
     private AudioSource correctPopAudio;
@@ -56,7 +56,7 @@ public class LevelController : MonoBehaviour
         backgoundAudio = GetComponents<AudioSource>()[0];
         correctPopAudio = GetComponents<AudioSource>()[1];
         incorrectPopAudio = GetComponents<AudioSource>()[2];
-        sceneAnimator = GameObject.Find("AfterPopAnimation").GetComponent<Animator>();
+        sceneAnimator = GameObject.Find("Background").GetComponent<Animator>();
 
         InvokeRepeating("Spawn", 0.02f, 1.6f);
     }
