@@ -64,7 +64,8 @@ public class Balloon : MonoBehaviour
         label = balloon.GetComponentInChildren<TMP_Text>();
 
         if(balloonCounter == 0 || balloonCounter == 3) {
-            label.text = labels[Random.Range(offset, 5 + offset)];
+            int rIndex = Random.Range(offset, 5 + offset) % labels.Count;
+            label.text = labels[rIndex];
         }
         else if(balloonCounter == 1 || balloonCounter == 4) {
             label.text = "";
@@ -74,7 +75,7 @@ public class Balloon : MonoBehaviour
             stickerRenderer.enabled = true;
         }
         else {
-            label.text = labels[offset];
+            label.text = labels[offset % labels.Count];
         }
 
         transform.position = new Vector3(Random.Range(-8f, 8f), -6, 0);

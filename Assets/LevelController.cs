@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,6 +13,13 @@ public enum LevelType {
     MaxLevelCount
 }
 
+public static class StringExtensions
+{
+    public static string AddColor(this string text, Color col) => $"<color={ColorHexFromUnityColor(col)}>{text}</color>";
+    public static string ColorHexFromUnityColor(this Color unityColor) => $"#{ColorUtility.ToHtmlStringRGBA(unityColor)}";
+}
+
+
 public class LevelController : MonoBehaviour
 {
     private int score = 0;
@@ -23,6 +31,8 @@ public class LevelController : MonoBehaviour
     private AudioSource backgoundAudio;
     private AudioSource correctPopAudio;
     private AudioSource incorrectPopAudio;
+    private TMP_Text levelHelp;
+    private Queue<Tuple<string, Color32>> bannerLabels = new Queue<Tuple<string, Color32>>();
 
     [SerializeField] GameObject balloonPrefab;
     [SerializeField] GameObject pauseMenu;
@@ -49,8 +59,8 @@ public class LevelController : MonoBehaviour
     {
         InitLevelLabels();
         level = (LevelType)LevelSelectorButton.selectedLevel;
-        string levelHelpText = "Pop " + LevelSelectorButton.selectedLevelName;
-        TMP_Text levelHelp = GameObject.FindGameObjectWithTag("LevelHelp").GetComponent<TMP_Text>();
+        string levelHelpText = "POP " + LevelSelectorButton.selectedLevelName;
+        levelHelp = GameObject.FindGameObjectWithTag("LevelHelp").GetComponent<TMP_Text>();
         levelHelp.text = levelHelpText;
 
         backgoundAudio = GetComponents<AudioSource>()[0];
@@ -98,7 +108,7 @@ public class LevelController : MonoBehaviour
     Balloon Spawn() {
         GameObject instance = Instantiate(balloonPrefab, transform.position, transform.rotation, this.transform);
         Balloon balloon = instance.GetComponent<Balloon>();
-        balloon.offset = score % levelLabels[(int)level].Count;
+        balloon.offset = score;
         return balloon;
     }
 
@@ -121,8 +131,24 @@ public class LevelController : MonoBehaviour
                 lastPoppedIndex = -1;
             }
             balloon.GetComponentsInChildren<TMP_Text>()[1].text = "+1";
+
+            Color32 balloonColor = balloon.GetComponent<SpriteRenderer>().color;
+            bannerLabels.Enqueue(new Tuple<string, Color32>(balloon.label.text, balloonColor));
+
+            if(bannerLabels.Count > 10) bannerLabels.Dequeue();
+
+            string newBanner = $"";
+            foreach (Tuple<string, Color32> label in bannerLabels) {
+                newBanner += $"{label.Item1.AddColor(label.Item2)}" + " ";
+            }
+
+            levelHelp.text = newBanner;
             score++;
             correctPopAudio.Play();
+
+            if(lastPoppedIndex == -1) {
+                bannerLabels.Clear();
+            }
         } 
         else {
             incorrectPopAudio.Play();
